@@ -1,15 +1,14 @@
 # AI Automation
-   We are using Browser-use library for our AI Automation
+
+We are using Browser-use library for our AI Automation
+
 🌐 Browser-use is the easiest way to connect your AI agents with the browser.
-
-💡 See what others are building and share your projects in our [Discord](https://link.browser-use.com/discord)! Want Swag? Check out our [Merch store](https://browsermerch.com).
-
-🌤️ Skip the setup - try our <b>hosted version</b> for instant browser automation! <b>[Try the cloud ☁︎](https://cloud.browser-use.com)</b>.
 
 # Quick start
 
 With UV (Python>=3.11):
 To Install UV check documentation - [here](https://docs.astral.sh/uv/)
+
 Step 1: Create a Virtual env using uv
 
 ```bash
@@ -36,10 +35,11 @@ Add your LLM Model for the provider you want to use to your `.env` file.
 LLM_MODEL_NAME=
 ```
 For eg:) Setup LLM Model Name
-if Chatgpt - "gpt-4o",
-if Gemini - "gemini-2.0-flash-lite",
-if Deepseek - "deepseek-chat",
-
+```
+if Chatgpt - "gpt-4o"
+if Gemini - "gemini-2.0-flash-lite"
+if Deepseek - "deepseek-chat"
+```
 Add your API keys for the LLM provider you want to use to your `.env` file.
 
 ```bash
