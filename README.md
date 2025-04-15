@@ -24,7 +24,7 @@ uv pip install -r ai_req.txt
 Step 3: Install Playwright
 
 ```bash
-playwright install chromium
+playwright install
 ```
 
 Setup up your agent:
