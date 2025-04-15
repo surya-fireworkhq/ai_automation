@@ -25,16 +25,16 @@ def get_browserstack_instance():
     browser_name = os.getenv('BROWSERSTACK_BROWSER_NAME', 'chrome').lower()
     browser_version = os.getenv('BROWSERSTACK_BROWSER_VERSION', 'latest')
 
-    if browser_name not in ["chrome", "firefox", "safari", "microsoftedge"]:
+    if browser_name not in ["chrome", "firefox", "safari", "edge"]:
         raise Exception(f'Unsupported browser: {browser_name}')
 
     playwright_version = subprocess.getoutput('playwright --version').strip().split(" ")[1]
 
     browser_mapping = {
         "chrome": "chrome",
-        "firefox": "pw-firefox",
-        "microsoftedge": "MicrosoftEdge",
-        "safari": "pw-webkit"
+        "firefox": "playwright-firefox",
+        "edge": "edge",
+        "safari": "playwright-webkit",
     }
     bs_browser_name = browser_mapping[browser_name]
 
