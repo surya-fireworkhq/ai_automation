@@ -1,16 +1,15 @@
-import os
 import subprocess
 import urllib.parse
-import json
 from browser_use import Browser
 from browser_use.browser.browser import BrowserConfig
 from browser_use.browser.context import BrowserContextConfig, BrowserContext
 from dotenv import load_dotenv
-import pytest
-import asyncio
+
+from ai_fixtures.reporting import *
 
 
 load_dotenv()
+expected_browser = (os.environ.get('BROWSER') or 'chrome').lower()
 
 
 def get_browserstack_instance():
@@ -63,14 +62,17 @@ def get_browserstack_instance():
 
 
 @pytest.fixture
-def browser():
+async def browser(request):
     browser_env = os.environ.get("BROWSER")
     if browser_env.lower() == "browserstack":
         browser_instance = get_browserstack_instance()
     else:
         browser_instance = Browser()
     yield browser_instance
-    browser_instance.close()
+    if hasattr(pytest, "session_details"):
+        pytest.browserstack_session_id = await get_session_id()
+        test_failed_check(request, browser_instance, playwright=True)
+    await browser_instance.close()
 
 
 @pytest.fixture
@@ -82,4 +84,12 @@ async def context(browser):
     )
     browser_context = BrowserContext(browser=browser, config=config)
     yield browser_context
-    await browser_context.close()
+
+
+async def get_session_id():
+    session_id = ""
+    if expected_browser == "browserstack":
+        if hasattr(pytest, "session_details"):
+            LOGGER.info("Browserstack session %s", pytest.session_details)
+            session_id = json.loads(pytest.session_details)['hashed_id']
+    return session_id

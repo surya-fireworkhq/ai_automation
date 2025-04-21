@@ -27,4 +27,4 @@ class SiteController:
     @controller.registry.action('wait for x seconds')
     async def wait_for_x_seconds(x: int):
         time.sleep(x)
-        return ActionResult(is_done=True)
+        return ActionResult(success=True)

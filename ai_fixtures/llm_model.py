@@ -10,12 +10,12 @@ from pydantic import SecretStr
 def llm():
     llm = os.environ.get("LLM_MODEL_NAME")
     if "gpt" in llm.lower():
-        llm = chatgpt()
+        pytest.llm = chatgpt()
     elif "deepseek" in llm.lower():
-        llm = deepseek()
+        pytest.llm = deepseek()
     elif "gemini" in llm.lower():
-        llm = gemini()
-    yield llm
+        pytest.llm = gemini()
+    yield pytest.llm
 
 
 def chatgpt():
@@ -47,6 +47,7 @@ def deepseek():
 
 
 def gemini():
+    # Custom controller functions are not working properly
     if os.getenv("GEMINI_API_KEY"):
         model = os.environ.get("LLM_MODEL_NAME") # "gemini-2.0-flash-lite-001"
         llm = ChatGoogleGenerativeAI(model=model,
