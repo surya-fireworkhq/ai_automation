@@ -36,7 +36,7 @@ def get_browserstack_instance():
         "safari": "playwright-webkit",
     }
     bs_browser_name = browser_mapping[browser_name]
-
+    # is_mobile = os.getenv('IS_MOBILE', 'false').lower() == 'true'
     capabilities = {
         'os': os_name,
         'os_version': os_version,
@@ -48,14 +48,13 @@ def get_browserstack_instance():
         'build': build,
         'name': project,
         'buildTag': build_tag,
-        'resolution': '1920x1080',
+        # 'resolution': '1920x1080',
         'client.playwrightVersion': playwright_version,
         'browserstack.debug': 'true',
         'browserstack.console': 'info',
         'browserstack.networkLogs': 'true',
         'browserstack.interactiveDebugging': 'true'
     }
-
     cdp_url = 'wss://cdp.browserstack.com/playwright?caps=' + urllib.parse.quote(json.dumps(capabilities))
     config = BrowserConfig(wss_url=cdp_url)
     return Browser(config=config)
@@ -79,11 +78,12 @@ async def browser(request):
 async def context(browser):
     config = BrowserContextConfig(
         wait_for_network_idle_page_load_time=60.0,
-        browser_window_size={'width': 1920, 'height': 1080},
+        browser_window_size={'width': 1400, 'height': 956},
         locale='en-US',
     )
     browser_context = BrowserContext(browser=browser, config=config)
     yield browser_context
+    await browser_context.close()
 
 
 async def get_session_id():

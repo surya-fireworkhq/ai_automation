@@ -18,6 +18,18 @@ def llm():
     yield pytest.llm
 
 
+@pytest.fixture()
+def planner_llm():
+    llm = os.environ.get("P_LLM_MODEL_NAME")
+    if "gpt" in llm.lower():
+        pytest.p_llm = chatgpt()
+    elif "deepseek" in llm.lower():
+        pytest.p_llm = deepseek()
+    elif "gemini" in llm.lower():
+        pytest.p_llm = gemini()
+    yield pytest.p_llm
+
+
 def chatgpt():
     if os.getenv("OPENAI_API_KEY"):
         model = os.environ.get("LLM_MODEL_NAME") # "gpt-4o"

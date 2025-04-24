@@ -22,7 +22,10 @@ class AIAgent:
             for i in add_controller_functions:
                 cc.registry.registry.actions[i] = (
                     AIAgent.controller.registry.registry.actions)[i]
-                params['task'] += f"\n{add_controller_functions[i]}"
+                params["task"] += f"\n{add_controller_functions[i]}"
+        params["task"] = 'Important: I am a UI Automation tester validating the tasks. \n'+params['task']
+        params["max_failures"] = 2
+        params["retry_delay"] = 5
         pytest.agent = Agent(**params)
         return pytest.agent
 
