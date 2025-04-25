@@ -11,7 +11,7 @@ class TestCase:
 
     controller = Dashboard().controller
 
-    async def test_create_short_video(self, context, llm, planner_llm):
+    async def test_create_short_video(self, context, llm):
         biz_url = 'https://business-staging.fireworktv.com/business/gpB3JQ/channel/L4bMDWr/videos'
         token = "?token="+os.environ.get("NABOO_TOKEN")
         initial_actions = [

@@ -19,16 +19,6 @@ class Dashboard:
     UPLOAD_INPUT = 'css=input[accept=".mp4,.mov"]'
 
     @staticmethod
-    @controller.registry.action('perform login into firework business')
-    async def perform_login_into_firework_business(url: str, browser: BrowserContext):
-        # Access browser context if needed
-        if "blank" in url:
-            url = "https://www.firework.com"
-        page = await browser.get_current_page()
-        await page.goto(url)
-        return ActionResult(extracted_content="Performed Firework Action")
-
-    @staticmethod
     @controller.registry.action('wait for x seconds')
     async def wait_for_x_seconds(x: int):
         time.sleep(x)
@@ -42,15 +32,3 @@ class Dashboard:
         file_chooser = page.locator(Dashboard.UPLOAD_INPUT)
         await file_chooser.set_input_files([file_path])
         return ActionResult(success=True)
-
-    # @staticmethod
-    # async def get_locate_by(locate_by):
-    #     if "CSS_SELECTOR" in locate_by or "TAGNAME" in locate_by:
-    #         locate_by = "css="
-    #     elif "XPATH" in locate_by:
-    #         locate_by = "xpath="
-    #     elif "ID" in locate_by:
-    #         locate_by = "id="
-    #     elif "CLASS_NAME" in locate_by:
-    #         locate_by = "css=."
-    #     return locate_by
